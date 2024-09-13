@@ -1,4 +1,4 @@
-package com.klenovn.finalspaceapp.ui.theme
+package com.klenovn.finalspaceapp.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

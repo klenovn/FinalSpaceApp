@@ -1,4 +1,4 @@
-package com.klenovn.finalspaceapp.ui.theme
+package com.klenovn.finalspaceapp.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
