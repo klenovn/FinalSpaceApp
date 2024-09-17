@@ -8,10 +8,19 @@ import androidx.room.Query
 @Dao
 interface FinalSpaceDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCharacter(character: CharacterEntity)
+    suspend fun insertCharacter(character: CharacterEntity): Long
+
+    @Query("DELETE FROM characterentity WHERE id = :id")
+    suspend fun deleteCharacter(id: Int): Int
 
     @Query("DELETE FROM characterentity")
-    suspend fun clearCharacters()
+    suspend fun clearCharacters(): Int
+
+    @Query("SELECT * FROM characterentity")
+    suspend fun getAllCharacters(): List<CharacterEntity>
+
+    @Query("SELECT * FROM characterentity WHERE id = :id")
+    suspend fun getCharacter(id: Int): CharacterEntity
 
     @Query("""
         SELECT *
