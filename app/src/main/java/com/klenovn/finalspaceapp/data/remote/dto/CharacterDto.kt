@@ -2,7 +2,6 @@ package com.klenovn.finalspaceapp.data.remote.dto
 
 
 import com.google.gson.annotations.SerializedName
-import com.klenovn.finalspaceapp.domain.model.Character
 
 data class CharacterDto(
     @SerializedName("id")

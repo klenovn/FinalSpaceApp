@@ -8,7 +8,7 @@ data class CharacterEntity(
     @PrimaryKey val id: Int,
     val name: String,
     val status: String,
-    val species: String,
+    val species: String?,
     val gender: String,
     val hair: String,
     val alias: List<String>,

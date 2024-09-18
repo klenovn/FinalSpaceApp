@@ -7,6 +7,8 @@ import com.klenovn.finalspaceapp.data.local.FinalSpaceDatabase
 import com.klenovn.finalspaceapp.data.remote.FinalSpaceApi
 import com.klenovn.finalspaceapp.data.repository.CharacterRepositoryImpl
 import com.klenovn.finalspaceapp.domain.repository.CharacterRepository
+import com.klenovn.finalspaceapp.domain.use_case.character.GetAllCharactersUseCase
+import com.klenovn.finalspaceapp.domain.use_case.character.GetCharacterUseCase
 import com.klenovn.finalspaceapp.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -54,5 +56,21 @@ object AppModule {
         dao: FinalSpaceDao
     ): CharacterRepository {
         return CharacterRepositoryImpl(api, dao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetAllCharactersUseCase(
+        repository: CharacterRepository
+    ): GetAllCharactersUseCase {
+        return GetAllCharactersUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetCharacterUseCase(
+        repository: CharacterRepository
+    ): GetCharacterUseCase {
+        return GetCharacterUseCase(repository)
     }
 }

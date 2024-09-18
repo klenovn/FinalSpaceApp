@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "4202c2c181bfea101ee3bc5e1955f374",
+    "identityHash": "f58879ec64aa0856c3fe1bc97bc5d482",
     "entities": [
       {
         "tableName": "CharacterEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `status` TEXT NOT NULL, `species` TEXT NOT NULL, `gender` TEXT NOT NULL, `hair` TEXT NOT NULL, `alias` TEXT NOT NULL, `origin` TEXT NOT NULL, `abilities` TEXT NOT NULL, `imgUrl` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `status` TEXT NOT NULL, `species` TEXT, `gender` TEXT NOT NULL, `hair` TEXT NOT NULL, `alias` TEXT NOT NULL, `origin` TEXT NOT NULL, `abilities` TEXT NOT NULL, `imgUrl` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -30,7 +30,7 @@
             "fieldPath": "species",
             "columnName": "species",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "gender",
@@ -82,7 +82,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4202c2c181bfea101ee3bc5e1955f374')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f58879ec64aa0856c3fe1bc97bc5d482')"
     ]
   }
 }
