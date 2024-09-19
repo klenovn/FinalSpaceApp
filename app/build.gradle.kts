@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -99,4 +100,11 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
+
+    // Coil
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
+
+    // Kotlin serialization
+    implementation(libs.kotlinx.serialization.json)
 }

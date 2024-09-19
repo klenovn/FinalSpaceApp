@@ -1,5 +1,6 @@
 package com.klenovn.finalspaceapp.presentation.characters
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.klenovn.finalspaceapp.domain.use_case.character.GetAllCharactersUseCase
@@ -16,7 +17,7 @@ import javax.inject.Inject
 class CharactersViewModel @Inject constructor(
     private val getAllCharactersUseCase: GetAllCharactersUseCase
 ) : ViewModel() {
-
+    private val TAG = "CharsVM"
     private val _state = MutableStateFlow(CharactersState())
     val state = _state.asStateFlow()
 
@@ -31,14 +32,17 @@ class CharactersViewModel @Inject constructor(
                     when (result) {
                         is ResourceState.Success -> {
                             _state.value = CharactersState(characters = result.data)
+                            Log.d(TAG, "Success")
                         }
 
                         is ResourceState.Loading -> {
                             _state.value = CharactersState(isLoading = true)
+                            Log.d(TAG, "Loading")
                         }
 
                         is ResourceState.Error -> {
                             _state.value = CharactersState(error = result.message)
+                            Log.d(TAG, "Error")
                         }
                     }
                 }.launchIn(this)
