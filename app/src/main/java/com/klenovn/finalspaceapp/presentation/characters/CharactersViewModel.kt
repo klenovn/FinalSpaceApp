@@ -20,7 +20,6 @@ import javax.inject.Inject
 class CharactersViewModel @Inject constructor(
     private val characterRepository: CharacterRepository
 ) : ViewModel() {
-    private val TAG = "CharsVM"
     private val _state = MutableStateFlow(CharactersState())
     val state = _state.asStateFlow()
 
@@ -31,7 +30,8 @@ class CharactersViewModel @Inject constructor(
     private fun getCharacters() {
         var characters: List<Character>
         viewModelScope.launch {
-            characterRepository.getAllCharacters()
+            characterRepository
+                .getAllCharacters()
                 .collectLatest { result ->
                     when (result) {
                         is ResourceState.Success -> {
@@ -42,12 +42,10 @@ class CharactersViewModel @Inject constructor(
 
                         is ResourceState.Loading -> {
                             _state.value = CharactersState(isLoading = true)
-                            Log.d(TAG, "Loading")
                         }
 
                         is ResourceState.Error -> {
                             _state.value = CharactersState(error = result.message)
-                            Log.d(TAG, "Error")
                         }
                     }
                 }

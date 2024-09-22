@@ -24,6 +24,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val bottomNavItems = listOf(
                 BottomNavItem.Characters,
+                BottomNavItem.Favourites
             )
 
             val selectedItemIndex = rememberSaveable {
