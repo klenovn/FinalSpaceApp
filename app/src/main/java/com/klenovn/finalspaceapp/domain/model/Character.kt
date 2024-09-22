@@ -11,4 +11,5 @@ data class Character(
     val origin: String,
     val abilities: List<String>,
     val imgUrl: String,
+    var isFavourite: Boolean
 )

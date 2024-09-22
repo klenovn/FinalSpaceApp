@@ -7,7 +7,7 @@ import com.klenovn.finalspaceapp.domain.model.Character
 fun CharacterDto.toCharacter() : Character {
     return Character(
         id = id,
-        name = name,
+        name = name.trim(),
         status = status,
         species = species,
         gender = gender,
@@ -15,7 +15,8 @@ fun CharacterDto.toCharacter() : Character {
         alias = alias,
         origin = origin,
         abilities = abilities,
-        imgUrl = imgUrl
+        imgUrl = imgUrl,
+        isFavourite = false
     )
 }
 
@@ -30,7 +31,8 @@ fun CharacterEntity.toCharacter() : Character {
         alias = alias,
         origin = origin,
         abilities = abilities,
-        imgUrl = imgUrl
+        imgUrl = imgUrl,
+        isFavourite = true
     )
 }
 

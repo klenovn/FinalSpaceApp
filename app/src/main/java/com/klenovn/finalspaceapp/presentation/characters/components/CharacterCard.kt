@@ -1,15 +1,23 @@
 package com.klenovn.finalspaceapp.presentation.characters.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -22,9 +30,12 @@ import com.klenovn.finalspaceapp.domain.model.Character
 
 @Composable
 fun CharacterCard(
+    modifier: Modifier = Modifier,
     character: Character,
-    modifier: Modifier = Modifier
+    isFavourite: Boolean = false,
+    onFavouriteToggle: () -> Unit
 ) {
+
     Card(
         modifier = modifier
             .fillMaxWidth(0.5f)
@@ -44,23 +55,42 @@ fun CharacterCard(
                     .clip(shape = RoundedCornerShape(16.dp))
                     .aspectRatio(1f)
             )
-            Text(
-                text = character.name,
-                modifier = Modifier
-                    .padding(horizontal = 8.dp, vertical = 8.dp),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.labelLarge
-            )
-            Text(
-                text = character.origin,
-                modifier = Modifier
-                    .padding(horizontal = 8.dp)
-                    .padding(bottom = 8.dp),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.bodyMedium
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(
+                        text = character.name,
+                        modifier = Modifier
+                            .padding(horizontal = 8.dp, vertical = 8.dp),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.labelLarge
+                    )
+                    Text(
+                        text = character.origin,
+                        modifier = Modifier
+                            .padding(horizontal = 8.dp)
+                            .padding(bottom = 8.dp),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+                IconButton(
+                    onClick = { onFavouriteToggle() }
+                ) {
+                    when (isFavourite) {
+                        true -> Icon(Icons.Filled.Favorite, contentDescription = "Delete from favourite", tint = Color.Red)
+                        else -> Icon(Icons.Outlined.FavoriteBorder, contentDescription = "Add to favourite")
+                    }
+
+                }
+            }
         }
     }
 }
@@ -81,6 +111,9 @@ private fun Preview() {
         emptyList<String>(),
         "Coolguy",
         emptyList<String>(),
-        "https://finalspaceapi.com/api/character/avatar/mooncake.jpg"
-    ))
+        "https://finalspaceapi.com/api/character/avatar/mooncake.jpg",
+        isFavourite = true
+    )) {
+
+    }
 }
