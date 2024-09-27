@@ -14,5 +14,5 @@ data class CharacterEntity(
     val alias: List<String>,
     val origin: String,
     val abilities: List<String>,
-    val imgUrl: String,
+    val imgFileName: String,
 )

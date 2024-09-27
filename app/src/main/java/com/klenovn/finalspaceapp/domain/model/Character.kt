@@ -1,5 +1,7 @@
 package com.klenovn.finalspaceapp.domain.model
 
+import java.io.File
+
 data class Character(
     val id: Int,
     val name: String,
@@ -11,5 +13,6 @@ data class Character(
     val origin: String,
     val abilities: List<String>,
     val imgUrl: String,
-    var isFavourite: Boolean
+    var isFavourite: Boolean,
+    val imgFile: File?
 )

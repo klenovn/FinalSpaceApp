@@ -1,5 +1,6 @@
 package com.klenovn.finalspaceapp.domain.repository
 
+import android.content.Context
 import com.klenovn.finalspaceapp.data.local.CharacterEntity
 import com.klenovn.finalspaceapp.domain.model.Character
 import com.klenovn.finalspaceapp.util.ResourceState
@@ -14,9 +15,9 @@ interface CharacterRepository {
 
     suspend fun getFavouriteCharacter(id: Int): Flow<ResourceState<Character>>
 
-    suspend fun addFavouriteCharacter(characterEntity: CharacterEntity): Flow<ResourceState<Long>>
+    suspend fun addFavouriteCharacter(character: Character): Flow<ResourceState<Long>>
 
-    suspend fun deleteFavouriteCharacter(id: Int): Flow<ResourceState<Int>>
+    suspend fun deleteFavouriteCharacter(characterEntity: CharacterEntity): Flow<ResourceState<Int>>
 
     suspend fun deleteFavouriteCharacters(): Flow<ResourceState<Int>>
 }

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f58879ec64aa0856c3fe1bc97bc5d482",
+    "identityHash": "b86bd3d5ca391a2d7e8fdc336433fa6d",
     "entities": [
       {
         "tableName": "CharacterEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `status` TEXT NOT NULL, `species` TEXT, `gender` TEXT NOT NULL, `hair` TEXT NOT NULL, `alias` TEXT NOT NULL, `origin` TEXT NOT NULL, `abilities` TEXT NOT NULL, `imgUrl` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `status` TEXT NOT NULL, `species` TEXT, `gender` TEXT NOT NULL, `hair` TEXT NOT NULL, `alias` TEXT NOT NULL, `origin` TEXT NOT NULL, `abilities` TEXT NOT NULL, `imgFileName` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -63,8 +63,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "imgUrl",
-            "columnName": "imgUrl",
+            "fieldPath": "imgFileName",
+            "columnName": "imgFileName",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -82,7 +82,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f58879ec64aa0856c3fe1bc97bc5d482')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b86bd3d5ca391a2d7e8fdc336433fa6d')"
     ]
   }
 }

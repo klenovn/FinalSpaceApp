@@ -2,13 +2,16 @@ package com.klenovn.finalspaceapp.presentation.favourites
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.klenovn.finalspaceapp.data.mapper.toCharacterEntity
 import com.klenovn.finalspaceapp.domain.model.Character
 import com.klenovn.finalspaceapp.domain.repository.CharacterRepository
 import com.klenovn.finalspaceapp.util.ResourceState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -42,5 +45,34 @@ class FavouritesViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun toggleFavourite(character: Character) {
+        viewModelScope.launch {
+            val resultFlow: Flow<ResourceState<Number>> = when (character.isFavourite) {
+                true -> characterRepository.deleteFavouriteCharacter(character.toCharacterEntity())
+                false -> return@launch
+            }
+
+            resultFlow.collectLatest { result ->
+                when (result) {
+                    is ResourceState.Success -> {
+                        updateCharacterFavouriteState(characterId = character.id, isFavourite = !character.isFavourite)
+                        _state.value.characters = _state.value.characters.filter { it.isFavourite }
+                    }
+                    is ResourceState.Error -> {  }
+                    is ResourceState.Loading -> {  }
+                }
+            }
+        }
+    }
+
+    private fun updateCharacterFavouriteState(characterId: Int, isFavourite: Boolean) {
+        _state.value = _state.value.copy(
+            characters = _state.value.characters.map {
+                if (it.id == characterId) it.copy(isFavourite = isFavourite)
+                else it
+            }
+        )
     }
 }

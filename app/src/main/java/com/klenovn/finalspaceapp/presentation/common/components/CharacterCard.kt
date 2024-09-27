@@ -1,4 +1,4 @@
-package com.klenovn.finalspaceapp.presentation.characters.components
+package com.klenovn.finalspaceapp.presentation.common.components
 
 import android.util.Log
 import androidx.compose.foundation.Image
@@ -36,13 +36,14 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
 import com.klenovn.finalspaceapp.domain.model.Character
-import okhttp3.internal.cacheGet
+import java.io.File
 
 @Composable
 fun CharacterCard(
     modifier: Modifier = Modifier,
     character: Character,
     isFavourite: Boolean = false,
+    isFromNetwork: Boolean = true,
     onFavouriteToggle: () -> Unit
 ) {
 
@@ -58,7 +59,9 @@ fun CharacterCard(
             modifier = Modifier
                 .padding(8.dp)
         ) {
-            AsyncLoadingImage(imgUrl = character.imgUrl)
+            if (isFromNetwork) AsyncLoadingImage(imgUrl = character.imgUrl)
+            else LocalImage(file = character.imgFile)
+
         }
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -134,7 +137,8 @@ fun AsyncLoadingImage(imgUrl: String) {
 
         is AsyncImagePainter.State.Success -> {
             Image(
-                painter = painter, contentDescription = "Character's image",
+                painter = painter,
+                contentDescription = "Character's image",
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(shape = RoundedCornerShape(16.dp))
@@ -146,6 +150,20 @@ fun AsyncLoadingImage(imgUrl: String) {
             Log.d("ImageState", "Unknown state")
         }
     }
+}
+
+@Composable
+fun LocalImage(file: File?) {
+    val painter = rememberAsyncImagePainter(model = file)
+
+    Image(
+        painter = painter,
+        contentDescription = "Character's image",
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(shape = RoundedCornerShape(16.dp))
+            .aspectRatio(1f),
+    )
 }
 
 @Composable
@@ -166,8 +184,10 @@ private fun Preview() {
             "Coolguy",
             emptyList<String>(),
             "https://finalspaceapi.com/api/character/avatar/mooncake.jpg",
-            isFavourite = true
-        )
+            isFavourite = true,
+            imgFile = null
+        ),
+        isFromNetwork = true
     ) {
 
     }

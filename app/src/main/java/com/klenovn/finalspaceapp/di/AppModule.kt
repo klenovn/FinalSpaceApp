@@ -1,16 +1,20 @@
 package com.klenovn.finalspaceapp.di
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.klenovn.finalspaceapp.data.local.FinalSpaceDao
 import com.klenovn.finalspaceapp.data.local.FinalSpaceDatabase
 import com.klenovn.finalspaceapp.data.remote.FinalSpaceApi
 import com.klenovn.finalspaceapp.data.repository.CharacterRepositoryImpl
+import com.klenovn.finalspaceapp.data.storage.AndroidFileManager
 import com.klenovn.finalspaceapp.domain.repository.CharacterRepository
+import com.klenovn.finalspaceapp.domain.storage.FileManager
 import com.klenovn.finalspaceapp.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,6 +23,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideContext(@ApplicationContext context: Context): Context {
+        return context
+    }
 
     @Provides
     @Singleton
@@ -51,8 +61,15 @@ object AppModule {
     @Singleton
     fun provideCharacterRepository(
         api: FinalSpaceApi,
-        dao: FinalSpaceDao
+        dao: FinalSpaceDao,
+        fileManager: FileManager
     ): CharacterRepository {
-        return CharacterRepositoryImpl(api, dao)
+        return CharacterRepositoryImpl(api, dao, fileManager)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFileManager(context: Context): FileManager {
+        return AndroidFileManager(context)
     }
 }

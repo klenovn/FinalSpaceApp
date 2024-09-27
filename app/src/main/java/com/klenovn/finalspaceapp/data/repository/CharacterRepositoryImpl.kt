@@ -3,9 +3,11 @@ package com.klenovn.finalspaceapp.data.repository
 import com.klenovn.finalspaceapp.data.local.CharacterEntity
 import com.klenovn.finalspaceapp.data.local.FinalSpaceDao
 import com.klenovn.finalspaceapp.data.mapper.toCharacter
+import com.klenovn.finalspaceapp.data.mapper.toCharacterEntity
 import com.klenovn.finalspaceapp.data.remote.FinalSpaceApi
 import com.klenovn.finalspaceapp.domain.model.Character
 import com.klenovn.finalspaceapp.domain.repository.CharacterRepository
+import com.klenovn.finalspaceapp.domain.storage.FileManager
 import com.klenovn.finalspaceapp.util.ResourceState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,7 +19,8 @@ import javax.inject.Singleton
 @Singleton
 class CharacterRepositoryImpl @Inject constructor(
     private val api: FinalSpaceApi,
-    private val dao: FinalSpaceDao
+    private val dao: FinalSpaceDao,
+    private val fileManager: FileManager
 ) : CharacterRepository {
     override suspend fun getAllCharacters(): Flow<ResourceState<List<Character>>> {
         return safeFlow {
@@ -36,7 +39,7 @@ class CharacterRepositoryImpl @Inject constructor(
     override suspend fun getAllFavouriteCharacters(): Flow<ResourceState<List<Character>>> {
         return safeFlow {
             val data = dao.getAllCharacters()
-            data.map { it.toCharacter() }
+            data.map { it.toCharacter().copy(imgFile = fileManager.loadImage(fileName = it.imgFileName)) }
         }
     }
 
@@ -47,15 +50,19 @@ class CharacterRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun addFavouriteCharacter(characterEntity: CharacterEntity): Flow<ResourceState<Long>> {
+    override suspend fun addFavouriteCharacter(character: Character): Flow<ResourceState<Long>> {
         return safeFlow {
+            var characterEntity = character.toCharacterEntity()
+            val imgFilename = fileManager.saveImage(character.imgUrl, characterEntity.imgFileName)
+            characterEntity = characterEntity.copy(imgFileName = imgFilename)
             dao.insertCharacter(characterEntity)
         }
     }
 
-    override suspend fun deleteFavouriteCharacter(id: Int): Flow<ResourceState<Int>> {
+    override suspend fun deleteFavouriteCharacter(characterEntity: CharacterEntity): Flow<ResourceState<Int>> {
         return safeFlow {
-            dao.deleteCharacter(id)
+            fileManager.deleteImage(characterEntity.imgFileName)
+            dao.deleteCharacter(characterEntity.id)
         }
     }
 

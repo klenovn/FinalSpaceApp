@@ -1,5 +1,7 @@
 package com.klenovn.finalspaceapp.data.mapper
 
+import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.text.toLowerCase
 import com.klenovn.finalspaceapp.data.local.CharacterEntity
 import com.klenovn.finalspaceapp.data.remote.dto.CharacterDto
 import com.klenovn.finalspaceapp.domain.model.Character
@@ -16,7 +18,8 @@ fun CharacterDto.toCharacter() : Character {
         origin = origin,
         abilities = abilities,
         imgUrl = imgUrl,
-        isFavourite = false
+        isFavourite = false,
+        imgFile = null
     )
 }
 
@@ -31,8 +34,9 @@ fun CharacterEntity.toCharacter() : Character {
         alias = alias,
         origin = origin,
         abilities = abilities,
-        imgUrl = imgUrl,
-        isFavourite = true
+        imgUrl = imgFileName,
+        isFavourite = true,
+        imgFile = null
     )
 }
 
@@ -47,6 +51,6 @@ fun Character.toCharacterEntity() : CharacterEntity {
         alias = alias,
         origin = origin,
         abilities = abilities,
-        imgUrl = imgUrl
+        imgFileName = "${name.replace(" ", "_").toLowerCase(Locale.current)}.jpg"
     )
 }
