@@ -8,7 +8,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.klenovn.finalspaceapp.domain.model.Character
 import com.klenovn.finalspaceapp.presentation.common.components.CharacterCard
 
 @Composable

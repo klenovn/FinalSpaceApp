@@ -73,13 +73,13 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Compose additions
-    implementation (libs.androidx.lifecycle.viewmodel.compose)
-    implementation (libs.androidx.navigation.compose)
-    implementation (libs.accompanist.flowlayout)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.accompanist.flowlayout)
 
     //Coroutines
-    implementation (libs.kotlinx.coroutines.core)
-    implementation (libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
     // Lifecycles
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

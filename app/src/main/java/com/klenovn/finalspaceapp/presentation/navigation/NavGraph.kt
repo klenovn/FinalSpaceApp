@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.klenovn.finalspaceapp.presentation.characterdetail.CharacterDetailScreen
 import com.klenovn.finalspaceapp.presentation.characters.CharactersScreen
 import com.klenovn.finalspaceapp.presentation.favourites.FavouritesScreen
 
@@ -18,6 +19,10 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
         
         composable<FavouritesRoute> { 
             FavouritesScreen(navController = navController)
+        }
+
+        composable<CharacterDetail> { entry ->
+            CharacterDetailScreen(navController)
         }
     }
 }

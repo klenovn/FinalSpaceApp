@@ -1,6 +1,5 @@
 package com.klenovn.finalspaceapp.domain.repository
 
-import android.content.Context
 import com.klenovn.finalspaceapp.data.local.CharacterEntity
 import com.klenovn.finalspaceapp.domain.model.Character
 import com.klenovn.finalspaceapp.util.ResourceState

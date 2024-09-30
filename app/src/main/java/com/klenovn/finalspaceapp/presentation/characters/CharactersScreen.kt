@@ -1,6 +1,7 @@
 package com.klenovn.finalspaceapp.presentation.characters
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -16,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klenovn.finalspaceapp.presentation.common.components.CharacterCard
+import com.klenovn.finalspaceapp.presentation.navigation.CharacterDetail
 
 @Composable
 fun CharactersScreen(
@@ -35,7 +37,14 @@ fun CharactersScreen(
         Box(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
             LazyVerticalGrid(columns = GridCells.Fixed(2)) {
                 items(state.characters) {
-                    CharacterCard(character = it, isFromNetwork = true, isFavourite = it.isFavourite) {
+                    CharacterCard(
+                        character = it,
+                        isFromNetwork = true,
+                        isFavourite = it.isFavourite,
+                        modifier = Modifier.clickable {
+                            navController.navigate(CharacterDetail(it.id))
+                        }
+                    ) {
                         viewModel.toggleFavourite(it)
                     }
                 }
