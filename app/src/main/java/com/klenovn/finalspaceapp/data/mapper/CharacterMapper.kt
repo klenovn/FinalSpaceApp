@@ -51,6 +51,6 @@ fun Character.toCharacterEntity() : CharacterEntity {
         alias = alias,
         origin = origin,
         abilities = abilities,
-        imgFileName = "${name.replace(" ", "_").toLowerCase(Locale.current)}.jpg"
+        imgFileName = "${name.replace(" ", "_").replace(".", "_").toLowerCase(Locale.current)}.jpg"
     )
 }

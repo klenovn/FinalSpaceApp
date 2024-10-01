@@ -26,15 +26,13 @@ class CharactersViewModel @Inject constructor(
     }
 
     private fun getCharacters() {
-        var characters: List<Character>
         viewModelScope.launch {
             characterRepository
                 .getAllCharacters()
                 .collectLatest { result ->
                     when (result) {
                         is ResourceState.Success -> {
-                            characters = result.data
-                            characters = mapFavouriteCharacters(characters)
+                            val characters = mapFavouriteCharacters(result.data)
                             _state.value = CharactersState(characters = characters)
                         }
 
@@ -92,5 +90,11 @@ class CharactersViewModel @Inject constructor(
                 else it
             }
         )
+    }
+
+    fun onResume() {
+        viewModelScope.launch {
+            _state.value = _state.value.copy(characters = mapFavouriteCharacters(_state.value.characters))
+        }
     }
 }

@@ -46,14 +46,18 @@ class CharacterRepositoryImpl @Inject constructor(
     override suspend fun getFavouriteCharacter(id: Int): Flow<ResourceState<Character>> {
         return safeFlow {
             val data = dao.getCharacter(id)
-            data.toCharacter()
+            data.toCharacter().copy(imgFile = fileManager.loadImage(fileName = data.imgFileName))
         }
     }
 
-    override suspend fun addFavouriteCharacter(character: Character): Flow<ResourceState<Long>> {
+    override suspend fun addFavouriteCharacter(character: Character, byteArray: ByteArray?): Flow<ResourceState<Long>> {
         return safeFlow {
             var characterEntity = character.toCharacterEntity()
-            val imgFilename = fileManager.saveImage(character.imgUrl, characterEntity.imgFileName)
+            val imgFilename = if (byteArray != null) {
+                fileManager.saveLocalImage(byteArray, characterEntity.imgFileName)
+            } else {
+                fileManager.saveNetworkImage(character.imgUrl, characterEntity.imgFileName)
+            }
             characterEntity = characterEntity.copy(imgFileName = imgFilename)
             dao.insertCharacter(characterEntity)
         }

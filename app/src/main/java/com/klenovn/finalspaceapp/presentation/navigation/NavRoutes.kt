@@ -10,3 +10,6 @@ object FavouritesRoute
 
 @Serializable
 data class CharacterDetail(val id: Int)
+
+@Serializable
+data class FavouriteDetail(val id: Int)

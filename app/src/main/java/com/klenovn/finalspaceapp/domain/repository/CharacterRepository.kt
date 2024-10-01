@@ -14,7 +14,7 @@ interface CharacterRepository {
 
     suspend fun getFavouriteCharacter(id: Int): Flow<ResourceState<Character>>
 
-    suspend fun addFavouriteCharacter(character: Character): Flow<ResourceState<Long>>
+    suspend fun addFavouriteCharacter(character: Character, byteArray: ByteArray? = null): Flow<ResourceState<Long>>
 
     suspend fun deleteFavouriteCharacter(characterEntity: CharacterEntity): Flow<ResourceState<Int>>
 

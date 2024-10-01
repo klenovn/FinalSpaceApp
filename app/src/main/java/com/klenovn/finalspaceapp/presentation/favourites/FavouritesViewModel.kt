@@ -74,4 +74,10 @@ class FavouritesViewModel @Inject constructor(
             }
         )
     }
+
+    fun onLaunch() {
+        viewModelScope.launch {
+            getFavourites()
+        }
+    }
 }

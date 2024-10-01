@@ -1,4 +1,4 @@
-package com.klenovn.finalspaceapp.presentation.characterdetail.components
+package com.klenovn.finalspaceapp.presentation.character_detail.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border

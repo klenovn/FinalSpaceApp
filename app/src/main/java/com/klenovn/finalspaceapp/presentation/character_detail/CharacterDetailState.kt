@@ -1,4 +1,4 @@
-package com.klenovn.finalspaceapp.presentation.characterdetail
+package com.klenovn.finalspaceapp.presentation.character_detail
 
 import com.klenovn.finalspaceapp.domain.model.Character
 
