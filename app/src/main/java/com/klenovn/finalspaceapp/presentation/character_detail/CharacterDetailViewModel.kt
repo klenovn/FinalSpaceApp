@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CharacterDetailViewModel @Inject constructor(
     private val characterRepository: CharacterRepository,
-    handle: SavedStateHandle
+    private val handle: SavedStateHandle
 ) : ViewModel() {
     private val _state = MutableStateFlow(CharacterDetailState())
     val state = _state.asStateFlow()
@@ -39,7 +39,7 @@ class CharacterDetailViewModel @Inject constructor(
                         _state.value = CharacterDetailState(character = result.data.copy(isFavourite = isFavourite(id)))
                     }
                     is ResourceState.Loading -> { _state.value = CharacterDetailState(isLoading = true) }
-                    is ResourceState.Error -> {}
+                    is ResourceState.Error -> { _state.value = CharacterDetailState(error = result.message) }
                 }
             }
         }
@@ -75,5 +75,11 @@ class CharacterDetailViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun onError() {
+        val characterDetail = handle.toRoute<CharacterDetail>()
+        val characterId = characterDetail.id
+        fetchCharacterInfo(characterId)
     }
 }

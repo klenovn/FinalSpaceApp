@@ -97,4 +97,8 @@ class CharactersViewModel @Inject constructor(
             _state.value = _state.value.copy(characters = mapFavouriteCharacters(_state.value.characters))
         }
     }
+
+    fun onRetry() {
+        getCharacters()
+    }
 }

@@ -33,6 +33,7 @@ import androidx.navigation.NavController
 import com.klenovn.finalspaceapp.presentation.character_detail.components.CharacterImage
 import com.klenovn.finalspaceapp.presentation.common.components.ExpandableInfoSection
 import com.klenovn.finalspaceapp.presentation.common.components.InfoRow
+import com.klenovn.finalspaceapp.presentation.common.components.RetryOnError
 
 @Composable
 fun CharacterDetailScreen(
@@ -41,26 +42,36 @@ fun CharacterDetailScreen(
 ) {
     val state = viewModel.state.collectAsState()
     val character = state.value.character
-    if (!state.value.isLoading) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            IconButton(onClick = { navController.popBackStack() }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back button"
-                )
-            }
-            character?.let {
-                IconButton(onClick = { viewModel.toggleFavourite(it) }) {
-                    when (character.isFavourite) {
-                        true -> Icon(imageVector = Icons.Filled.Favorite, tint = Color.Red, contentDescription = "Favourite button")
-                        else -> Icon(imageVector = Icons.Default.FavoriteBorder, contentDescription = "Favourite button")
-                    }
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        IconButton(onClick = { navController.popBackStack() }) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = "Back button"
+            )
+        }
+        character?.let {
+            IconButton(onClick = { viewModel.toggleFavourite(it) }) {
+                when (character.isFavourite) {
+                    true -> Icon(imageVector = Icons.Filled.Favorite, tint = Color.Red, contentDescription = "Favourite button")
+                    else -> Icon(imageVector = Icons.Default.FavoriteBorder, contentDescription = "Favourite button")
                 }
             }
         }
+    }
+
+    if (state.value.isLoading) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        }
+    } else if (state.value.error != null) {
+        RetryOnError {
+            viewModel.onError()
+        }
+    } else {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -97,10 +108,6 @@ fun CharacterDetailScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
             }
-        }
-    } else {
-        Box(modifier = Modifier.fillMaxSize()) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
 }

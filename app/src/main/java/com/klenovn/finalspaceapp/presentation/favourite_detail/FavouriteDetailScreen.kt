@@ -41,26 +41,34 @@ fun FavouriteDetailScreen(
 ) {
     val state = viewModel.state.collectAsState()
     val character = state.value.character
-    if (!state.value.isLoading) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            IconButton(onClick = { navController.popBackStack() }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back button"
-                )
-            }
-            character?.let {
-                IconButton(onClick = { viewModel.toggleFavourite(it) }) {
-                    when (character.isFavourite) {
-                        true -> Icon(imageVector = Icons.Filled.Favorite, tint = Color.Red, contentDescription = "Favourite button")
-                        else -> Icon(imageVector = Icons.Default.FavoriteBorder, contentDescription = "Favourite button")
-                    }
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        IconButton(onClick = { navController.popBackStack() }) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = "Back button"
+            )
+        }
+        character?.let {
+            IconButton(onClick = { viewModel.toggleFavourite(it) }) {
+                when (character.isFavourite) {
+                    true -> Icon(imageVector = Icons.Filled.Favorite, tint = Color.Red, contentDescription = "Favourite button")
+                    else -> Icon(imageVector = Icons.Default.FavoriteBorder, contentDescription = "Favourite button")
                 }
             }
         }
+    }
+
+    if (state.value.isLoading) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        }
+    } else if (state.value.error != null) {
+        viewModel.onRetry()
+    } else {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -97,10 +105,6 @@ fun FavouriteDetailScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
             }
-        }
-    } else {
-        Box(modifier = Modifier.fillMaxSize()) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
 }

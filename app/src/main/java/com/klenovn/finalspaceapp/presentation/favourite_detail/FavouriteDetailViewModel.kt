@@ -21,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FavouriteDetailViewModel @Inject constructor(
     private val characterRepository: CharacterRepository,
-    hande: SavedStateHandle
+    private val hande: SavedStateHandle
 ) : ViewModel() {
     private val _state = MutableStateFlow(FavouriteDetailState())
     val state = _state.asStateFlow()
@@ -41,7 +41,8 @@ class FavouriteDetailViewModel @Inject constructor(
                         _state.value = FavouriteDetailState(character = result.data.copy(isFavourite = isFavourite(id)))
                     }
                     is ResourceState.Loading -> { _state.value = FavouriteDetailState(isLoading = true) }
-                    is ResourceState.Error -> {}
+                    is ResourceState.Error -> { _state.value = FavouriteDetailState(error = result.message)
+                    }
                 }
             }
         }
@@ -80,5 +81,11 @@ class FavouriteDetailViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun onRetry() {
+        val favouriteDetail = hande.toRoute<FavouriteDetail>()
+        val favouriteId = favouriteDetail.id
+        fetchCharacterInfo(favouriteId)
     }
 }

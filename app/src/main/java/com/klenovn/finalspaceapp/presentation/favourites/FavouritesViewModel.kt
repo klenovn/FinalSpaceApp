@@ -80,4 +80,8 @@ class FavouritesViewModel @Inject constructor(
             getFavourites()
         }
     }
+
+    fun onRetry() {
+        getFavourites()
+    }
 }
