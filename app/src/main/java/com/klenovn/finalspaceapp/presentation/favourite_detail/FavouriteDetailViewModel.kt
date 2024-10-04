@@ -1,6 +1,5 @@
 package com.klenovn.finalspaceapp.presentation.favourite_detail
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -61,7 +60,7 @@ class FavouriteDetailViewModel @Inject constructor(
         return isFavourite
     }
 
-    fun toggleFavourite(character: Character) {
+    fun onToggleFavourite(character: Character) {
         viewModelScope.launch {
             if (character.imgFile != null && character.imgFile.exists()) {
                 byteArray = character.imgFile.readBytes()

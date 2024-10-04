@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.klenovn.finalspaceapp.domain.model.Character
 import com.klenovn.finalspaceapp.presentation.common.components.CharacterCard
 import com.klenovn.finalspaceapp.presentation.common.components.RetryOnError
 import com.klenovn.finalspaceapp.presentation.navigation.FavouriteDetail
@@ -30,27 +31,46 @@ fun FavouritesScreen(
         viewModel.onLaunch()
     }
 
-    if (state.isLoading) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator()
+    Content(
+        state = state,
+        onRetry = viewModel::onRetry,
+        onToggleFavourite = viewModel::onToggleFavourite,
+        onFavouriteClick = { favouriteId -> navController.navigate(FavouriteDetail(favouriteId))}
+    )
+}
+
+@Composable
+private fun Content(
+    state: FavouritesState,
+    onRetry: () -> Unit,
+    onToggleFavourite: (Character) -> Unit,
+    onFavouriteClick: (Int) -> Unit
+) {
+    when {
+        state.isLoading -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
         }
-    } else if (state.error != null) {
-        RetryOnError { viewModel.onRetry() }
-    } else {
-        LazyVerticalGrid(columns = GridCells.Fixed(2)) {
-            items(state.characters) {
-                CharacterCard(
-                    character = it,
-                    isFromNetwork = false,
-                    isFavourite = it.isFavourite,
-                    modifier = Modifier.clickable {
-                        navController.navigate(FavouriteDetail(it.id))
+        state.error != null -> {
+            RetryOnError(onClick = onRetry)
+        }
+        else -> {
+            LazyVerticalGrid(columns = GridCells.Fixed(2)) {
+                items(state.characters) {
+                    CharacterCard(
+                        character = it,
+                        isFromNetwork = false,
+                        isFavourite = it.isFavourite,
+                        modifier = Modifier.clickable {
+                            onFavouriteClick(it.id)
+                        }
+                    ) {
+                        onToggleFavourite(it)
                     }
-                ) {
-                    viewModel.toggleFavourite(it)
                 }
             }
         }

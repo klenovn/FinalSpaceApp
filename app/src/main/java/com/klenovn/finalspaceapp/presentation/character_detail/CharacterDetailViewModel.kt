@@ -58,7 +58,7 @@ class CharacterDetailViewModel @Inject constructor(
         return isFavourite
     }
 
-    fun toggleFavourite(character: Character) {
+    fun onToggleFavourite(character: Character) {
         viewModelScope.launch {
             val resultFlow: Flow<ResourceState<Number>> = when (character.isFavourite) {
                 true -> characterRepository.deleteFavouriteCharacter(character.toCharacterEntity())
@@ -77,7 +77,7 @@ class CharacterDetailViewModel @Inject constructor(
         }
     }
 
-    fun onError() {
+    fun onRetry() {
         val characterDetail = handle.toRoute<CharacterDetail>()
         val characterId = characterDetail.id
         fetchCharacterInfo(characterId)
