@@ -7,7 +7,7 @@ import androidx.navigation.toRoute
 import com.klenovn.finalspaceapp.data.mapper.toCharacterEntity
 import com.klenovn.finalspaceapp.domain.model.Character
 import com.klenovn.finalspaceapp.domain.repository.CharacterRepository
-import com.klenovn.finalspaceapp.presentation.navigation.CharacterDetail
+import com.klenovn.finalspaceapp.presentation.navigation.CharacterDetailRoute
 import com.klenovn.finalspaceapp.util.ResourceState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -26,8 +26,8 @@ class CharacterDetailViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     init {
-        val characterDetail = handle.toRoute<CharacterDetail>()
-        val characterId = characterDetail.id
+        val characterDetailRoute = handle.toRoute<CharacterDetailRoute>()
+        val characterId = characterDetailRoute.id
         fetchCharacterInfo(characterId)
     }
 
@@ -78,8 +78,8 @@ class CharacterDetailViewModel @Inject constructor(
     }
 
     fun onRetry() {
-        val characterDetail = handle.toRoute<CharacterDetail>()
-        val characterId = characterDetail.id
+        val characterDetailRoute = handle.toRoute<CharacterDetailRoute>()
+        val characterId = characterDetailRoute.id
         fetchCharacterInfo(characterId)
     }
 }

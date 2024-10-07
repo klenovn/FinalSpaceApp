@@ -9,7 +9,13 @@ object CharactersRoute
 object FavouritesRoute
 
 @Serializable
-data class CharacterDetail(val id: Int)
+object LocationsRoute
 
 @Serializable
-data class FavouriteDetail(val id: Int)
+data class CharacterDetailRoute(val id: Int)
+
+@Serializable
+data class FavouriteDetailRoute(val id: Int)
+
+@Serializable
+data class LocationDetailRoute(val id: Int)

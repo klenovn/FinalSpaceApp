@@ -18,7 +18,7 @@ import androidx.navigation.NavController
 import com.klenovn.finalspaceapp.domain.model.Character
 import com.klenovn.finalspaceapp.presentation.common.components.CharacterCard
 import com.klenovn.finalspaceapp.presentation.common.components.RetryOnError
-import com.klenovn.finalspaceapp.presentation.navigation.FavouriteDetail
+import com.klenovn.finalspaceapp.presentation.navigation.FavouriteDetailRoute
 
 @Composable
 fun FavouritesScreen(
@@ -35,7 +35,7 @@ fun FavouritesScreen(
         state = state,
         onRetry = viewModel::onRetry,
         onToggleFavourite = viewModel::onToggleFavourite,
-        onFavouriteClick = { favouriteId -> navController.navigate(FavouriteDetail(favouriteId))}
+        onFavouriteClick = { favouriteId -> navController.navigate(FavouriteDetailRoute(favouriteId))}
     )
 }
 

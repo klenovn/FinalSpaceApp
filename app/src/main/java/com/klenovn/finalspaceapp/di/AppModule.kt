@@ -7,8 +7,10 @@ import com.klenovn.finalspaceapp.data.local.FinalSpaceDao
 import com.klenovn.finalspaceapp.data.local.FinalSpaceDatabase
 import com.klenovn.finalspaceapp.data.remote.FinalSpaceApi
 import com.klenovn.finalspaceapp.data.repository.CharacterRepositoryImpl
+import com.klenovn.finalspaceapp.data.repository.LocationRepositoryImpl
 import com.klenovn.finalspaceapp.data.storage.AndroidFileManager
 import com.klenovn.finalspaceapp.domain.repository.CharacterRepository
+import com.klenovn.finalspaceapp.domain.repository.LocationRepository
 import com.klenovn.finalspaceapp.domain.storage.FileManager
 import com.klenovn.finalspaceapp.util.Constants
 import dagger.Module
@@ -65,6 +67,14 @@ object AppModule {
         fileManager: FileManager
     ): CharacterRepository {
         return CharacterRepositoryImpl(api, dao, fileManager)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationRepository(
+        api: FinalSpaceApi
+    ): LocationRepository {
+        return LocationRepositoryImpl(api)
     }
 
     @Provides

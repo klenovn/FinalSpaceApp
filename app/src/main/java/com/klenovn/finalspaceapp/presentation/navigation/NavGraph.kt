@@ -9,6 +9,8 @@ import com.klenovn.finalspaceapp.presentation.character_detail.CharacterDetailSc
 import com.klenovn.finalspaceapp.presentation.characters.CharactersScreen
 import com.klenovn.finalspaceapp.presentation.favourite_detail.FavouriteDetailScreen
 import com.klenovn.finalspaceapp.presentation.favourites.FavouritesScreen
+import com.klenovn.finalspaceapp.presentation.location_detail.LocationDetailScreen
+import com.klenovn.finalspaceapp.presentation.locations.LocationsScreen
 
 @Composable
 fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
@@ -21,13 +23,21 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
         composable<FavouritesRoute> { 
             FavouritesScreen(navController = navController)
         }
+        
+        composable<LocationsRoute> { 
+            LocationsScreen(navController = navController)
+        }
 
-        composable<CharacterDetail> {
+        composable<CharacterDetailRoute> {
             CharacterDetailScreen(navController = navController)
         }
 
-        composable<FavouriteDetail> {
+        composable<FavouriteDetailRoute> {
             FavouriteDetailScreen(navController = navController)
+        }
+
+        composable<LocationDetailRoute> {
+            LocationDetailScreen(navController = navController)
         }
     }
 }

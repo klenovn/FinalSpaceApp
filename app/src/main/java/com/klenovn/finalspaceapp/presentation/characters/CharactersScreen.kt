@@ -18,7 +18,7 @@ import androidx.navigation.NavController
 import com.klenovn.finalspaceapp.domain.model.Character
 import com.klenovn.finalspaceapp.presentation.common.components.CharacterCard
 import com.klenovn.finalspaceapp.presentation.common.components.RetryOnError
-import com.klenovn.finalspaceapp.presentation.navigation.CharacterDetail
+import com.klenovn.finalspaceapp.presentation.navigation.CharacterDetailRoute
 
 @Composable
 fun CharactersScreen(
@@ -36,7 +36,7 @@ fun CharactersScreen(
         state = state,
         onRetry = viewModel::onRetry,
         onToggleFavourite = viewModel::onToggleFavourite,
-        onCharacterClick = { characterId -> navController.navigate(CharacterDetail(characterId)) }
+        onCharacterClick = { characterId -> navController.navigate(CharacterDetailRoute(characterId)) }
     )
 }
 

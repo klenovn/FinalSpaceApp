@@ -13,8 +13,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.klenovn.finalspaceapp.presentation.navigation.BottomNavItem
 import com.klenovn.finalspaceapp.presentation.navigation.BottomNavigationBar
-import com.klenovn.finalspaceapp.presentation.navigation.CharacterDetail
-import com.klenovn.finalspaceapp.presentation.navigation.CharactersRoute
 import com.klenovn.finalspaceapp.presentation.navigation.NavGraph
 import com.klenovn.finalspaceapp.presentation.ui.theme.FinalSpaceAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +24,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             val bottomNavItems = listOf(
                 BottomNavItem.Characters,
-                BottomNavItem.Favourites
+                BottomNavItem.Favourites,
+                BottomNavItem.Locations
             )
 
             val selectedItemIndex = rememberSaveable {

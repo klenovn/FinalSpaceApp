@@ -7,7 +7,7 @@ import androidx.navigation.toRoute
 import com.klenovn.finalspaceapp.data.mapper.toCharacterEntity
 import com.klenovn.finalspaceapp.domain.model.Character
 import com.klenovn.finalspaceapp.domain.repository.CharacterRepository
-import com.klenovn.finalspaceapp.presentation.navigation.FavouriteDetail
+import com.klenovn.finalspaceapp.presentation.navigation.FavouriteDetailRoute
 import com.klenovn.finalspaceapp.util.ResourceState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -27,8 +27,8 @@ class FavouriteDetailViewModel @Inject constructor(
     private var byteArray: ByteArray? = null
 
     init {
-        val favouriteDetail = hande.toRoute<FavouriteDetail>()
-        val favouriteId = favouriteDetail.id
+        val favouriteDetailRoute = hande.toRoute<FavouriteDetailRoute>()
+        val favouriteId = favouriteDetailRoute.id
         fetchCharacterInfo(favouriteId)
     }
 
@@ -40,8 +40,7 @@ class FavouriteDetailViewModel @Inject constructor(
                         _state.value = FavouriteDetailState(character = result.data.copy(isFavourite = isFavourite(id)))
                     }
                     is ResourceState.Loading -> { _state.value = FavouriteDetailState(isLoading = true) }
-                    is ResourceState.Error -> { _state.value = FavouriteDetailState(error = result.message)
-                    }
+                    is ResourceState.Error -> { _state.value = FavouriteDetailState(error = result.message) }
                 }
             }
         }
@@ -83,8 +82,8 @@ class FavouriteDetailViewModel @Inject constructor(
     }
 
     fun onRetry() {
-        val favouriteDetail = hande.toRoute<FavouriteDetail>()
-        val favouriteId = favouriteDetail.id
+        val favouriteDetailRoute = hande.toRoute<FavouriteDetailRoute>()
+        val favouriteId = favouriteDetailRoute.id
         fetchCharacterInfo(favouriteId)
     }
 }
