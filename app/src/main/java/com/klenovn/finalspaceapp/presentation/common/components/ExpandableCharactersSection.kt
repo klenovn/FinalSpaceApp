@@ -3,13 +3,10 @@ package com.klenovn.finalspaceapp.presentation.common.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -30,7 +27,12 @@ import androidx.compose.ui.unit.dp
 import com.klenovn.finalspaceapp.domain.model.Character
 
 @Composable
-fun ExpandableCharactersSection(label: String, content: List<Character>) {
+fun ExpandableCharactersSection(
+    label: String,
+    content: List<Character>,
+    onCardClick: (Int) -> Unit,
+    onToggleFavourite: (Character) -> Unit
+) {
     var isExpanded by rememberSaveable { mutableStateOf(false) }
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
@@ -54,12 +56,19 @@ fun ExpandableCharactersSection(label: String, content: List<Character>) {
         }
         if (isExpanded) {
             LazyRow(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 48.dp)
             ) {
                 items(content) {
-                    CharacterCard(character = it, modifier = Modifier.width((screenWidth / 2).dp)) {
-
-                    }
+                    CharacterCard(
+                        character = it,
+                        modifier = Modifier
+                            .width((screenWidth / 2).dp),
+                        isFavourite = it.isFavourite,
+                        onCardClick = { onCardClick(it.id) },
+                        onFavouriteToggle = { onToggleFavourite(it) }
+                    )
                 }
             }
         }

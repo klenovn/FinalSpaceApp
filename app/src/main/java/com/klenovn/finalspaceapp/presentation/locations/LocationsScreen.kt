@@ -22,6 +22,8 @@ import androidx.compose.ui.util.lerp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klenovn.finalspaceapp.presentation.common.components.LocationImage
+import com.klenovn.finalspaceapp.presentation.common.components.RetryOnError
+import com.klenovn.finalspaceapp.presentation.common.components.ScreenLoadingIndicator
 import com.klenovn.finalspaceapp.presentation.common.components.ScrollList
 import com.klenovn.finalspaceapp.presentation.navigation.LocationDetailRoute
 import kotlin.math.absoluteValue
@@ -34,76 +36,90 @@ fun LocationsScreen(
     val state by viewModel.state.collectAsState()
     Content(
         state = state,
-        onLocationClick = { locationId -> navController.navigate(LocationDetailRoute(locationId)) }
+        onLocationClick = { locationId -> navController.navigate(LocationDetailRoute(locationId)) },
+        onRetry = {}
     )
 }
 
 @Composable
 private fun Content(
     state: LocationsState,
-    onLocationClick: (id: Int) -> Unit
+    onLocationClick: (id: Int) -> Unit,
+    onRetry: () -> Unit
 ) {
-    ScrollList(items = state.locations) { page, pagerState ->
-        val item = state.locations[page]
+    when {
+        state.isLoading -> {
+            ScreenLoadingIndicator()
+        }
 
-        Card(
-            modifier = Modifier
-                .padding(horizontal = 32.dp)
-                .graphicsLayer {
-                    val pageOffset = (
-                            (pagerState.currentPage - page) + pagerState
-                                .currentPageOffsetFraction
-                            ).absoluteValue
+        state.error != null -> {
+            RetryOnError { onRetry() }
+        }
 
-                    alpha = lerp(
-                        start = 0.5f,
-                        stop = 1f,
-                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                    )
+        else -> {
+            ScrollList(items = state.locations) { page, pagerState ->
+                val item = state.locations[page]
 
-                    scaleX = lerp(
-                        start = 0.8f,
-                        stop = 1.1f,
-                        fraction = 1f - pageOffset.coerceIn(0f, 1.5f)
-                    )
-
-                    scaleY = lerp(
-                        start = 0.8f,
-                        stop = 1.1f,
-                        fraction = 1f - pageOffset.coerceIn(0f, 1.5f)
-                    )
-                }
-                .clickable { onLocationClick(item.id) }
-        ) {
-            val imageLabelColor = Color.Black.copy(alpha = 0.7f)
-
-            Box {
-                LocationImage(imgUrl = item.imgUrl)
-
-                Box(
+                Card(
                     modifier = Modifier
-                        .padding(8.dp)
-                        .border(
-                            color = imageLabelColor,
-                            width = 1.dp,
-                            shape = RoundedCornerShape(50f)
-                        )
-                        .background(
-                            color = imageLabelColor,
-                            shape = RoundedCornerShape(50f)
-                        )
-                        .align(Alignment.TopEnd)
+                        .padding(horizontal = 32.dp)
+                        .graphicsLayer {
+                            val pageOffset = (
+                                    (pagerState.currentPage - page) + pagerState
+                                        .currentPageOffsetFraction
+                                    ).absoluteValue
+
+                            alpha = lerp(
+                                start = 0.5f,
+                                stop = 1f,
+                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                            )
+
+                            scaleX = lerp(
+                                start = 0.8f,
+                                stop = 1.1f,
+                                fraction = 1f - pageOffset.coerceIn(0f, 1.5f)
+                            )
+
+                            scaleY = lerp(
+                                start = 0.8f,
+                                stop = 1.1f,
+                                fraction = 1f - pageOffset.coerceIn(0f, 1.5f)
+                            )
+                        }
+                        .clickable { onLocationClick(item.id) }
                 ) {
-                    Text(
-                        text = item.name,
-                        style = MaterialTheme.typography.titleMedium.copy(
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color.White
-                        ),
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .padding(8.dp)
-                    )
+                    val imageLabelColor = Color.Black.copy(alpha = 0.7f)
+
+                    Box {
+                        LocationImage(imgUrl = item.imgUrl)
+
+                        Box(
+                            modifier = Modifier
+                                .padding(8.dp)
+                                .border(
+                                    color = imageLabelColor,
+                                    width = 1.dp,
+                                    shape = RoundedCornerShape(50f)
+                                )
+                                .background(
+                                    color = imageLabelColor,
+                                    shape = RoundedCornerShape(50f)
+                                )
+                                .align(Alignment.TopEnd)
+                        ) {
+                            Text(
+                                text = item.name,
+                                style = MaterialTheme.typography.titleMedium.copy(
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = Color.White
+                                ),
+                                modifier = Modifier
+                                    .align(Alignment.Center)
+                                    .padding(8.dp)
+                            )
+                        }
+                    }
                 }
             }
         }

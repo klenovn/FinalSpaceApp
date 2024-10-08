@@ -36,6 +36,7 @@ import com.klenovn.finalspaceapp.presentation.common.components.CharacterImage
 import com.klenovn.finalspaceapp.presentation.common.components.ExpandableInfoSection
 import com.klenovn.finalspaceapp.presentation.common.components.InfoRow
 import com.klenovn.finalspaceapp.presentation.common.components.RetryOnError
+import com.klenovn.finalspaceapp.presentation.common.components.ScreenLoadingIndicator
 
 @Composable
 fun CharacterDetailScreen(
@@ -83,9 +84,7 @@ private fun Content(
 
     when {
         state.isLoading -> {
-            Box(modifier = Modifier.fillMaxSize()) {
-                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-            }
+            ScreenLoadingIndicator()
         }
         state.error != null -> {
             RetryOnError { onRetry() }

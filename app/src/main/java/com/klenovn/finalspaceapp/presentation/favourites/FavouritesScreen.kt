@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import com.klenovn.finalspaceapp.domain.model.Character
 import com.klenovn.finalspaceapp.presentation.common.components.CharacterCard
 import com.klenovn.finalspaceapp.presentation.common.components.RetryOnError
+import com.klenovn.finalspaceapp.presentation.common.components.ScreenLoadingIndicator
 import com.klenovn.finalspaceapp.presentation.navigation.FavouriteDetailRoute
 
 @Composable
@@ -48,12 +49,7 @@ private fun Content(
 ) {
     when {
         state.isLoading -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
+            ScreenLoadingIndicator()
         }
         state.error != null -> {
             RetryOnError(onClick = onRetry)
@@ -65,9 +61,7 @@ private fun Content(
                         character = it,
                         isFromNetwork = false,
                         isFavourite = it.isFavourite,
-                        modifier = Modifier.clickable {
-                            onFavouriteClick(it.id)
-                        }
+                        onCardClick = { onFavouriteClick(it.id) }
                     ) {
                         onToggleFavourite(it)
                     }

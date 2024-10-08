@@ -2,6 +2,7 @@ package com.klenovn.finalspaceapp.presentation.common.components
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -44,7 +45,8 @@ fun CharacterCard(
     character: Character,
     isFavourite: Boolean = false,
     isFromNetwork: Boolean = true,
-    onFavouriteToggle: () -> Unit
+    onCardClick: () -> Unit,
+    onFavouriteToggle: () -> Unit,
 ) {
 
     Card(
@@ -52,7 +54,8 @@ fun CharacterCard(
             .fillMaxWidth(0.5f)
             .padding(16.dp)
             .shadow(10.dp, shape = RoundedCornerShape(24.dp))
-            .clip(RoundedCornerShape(24.dp)),
+            .clip(RoundedCornerShape(24.dp))
+            .clickable { onCardClick() },
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
         Column(
@@ -164,31 +167,4 @@ fun LocalImage(file: File?) {
             .clip(shape = RoundedCornerShape(16.dp))
             .aspectRatio(1f),
     )
-}
-
-@Composable
-@Preview(
-    showBackground = true,
-    showSystemUi = true
-)
-private fun Preview() {
-    CharacterCard(
-        character = Character(
-            1,
-            "Coolguy",
-            "Coolguy",
-            "Coolguy",
-            "Coolguy",
-            "Coolguy",
-            emptyList<String>(),
-            "Coolguy",
-            emptyList<String>(),
-            "https://finalspaceapi.com/api/character/avatar/mooncake.jpg",
-            isFavourite = true,
-            imgFile = null
-        ),
-        isFromNetwork = true
-    ) {
-
-    }
 }
