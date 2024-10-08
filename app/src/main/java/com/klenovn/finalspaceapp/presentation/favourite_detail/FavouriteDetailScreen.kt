@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klenovn.finalspaceapp.domain.model.Character
-import com.klenovn.finalspaceapp.presentation.character_detail.components.CharacterImage
+import com.klenovn.finalspaceapp.presentation.common.components.CharacterImage
 import com.klenovn.finalspaceapp.presentation.common.components.ExpandableInfoSection
 import com.klenovn.finalspaceapp.presentation.common.components.InfoRow
 
