@@ -26,7 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.klenovn.finalspaceapp.presentation.ui.theme.FlowColorBg
+import com.klenovn.finalspaceapp.presentation.ui.theme.ExtendedTheme
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -35,37 +35,41 @@ fun ExpandableInfoSection(label: String, content: List<String>) {
 
     val cleanedContent = cleanAliases(content)
 
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { isExpanded = !isExpanded }
-                .padding(vertical = 8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Light)
-            )
-            Icon(
-                imageVector = if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
-                contentDescription = null
-            )
-        }
-        if (isExpanded) {
-            FlowRow(modifier = Modifier) {
-                cleanedContent.forEach {
-                    Card(modifier = Modifier
-                        .clip(RoundedCornerShape(50))
-                        .padding(8.dp),
-                        colors = CardDefaults.cardColors(FlowColorBg)
-                    )
-                    {
-                        Text(
-                            text = it,
-                            modifier = Modifier.padding(8.dp),
-                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.SemiBold)
+    if (content.isNotEmpty()) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { isExpanded = !isExpanded }
+                    .padding(vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Light)
+                )
+                Icon(
+                    imageVector = if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+                    contentDescription = null
+                )
+            }
+
+            if (isExpanded) {
+                FlowRow(modifier = Modifier) {
+                    cleanedContent.forEach {
+                        Card(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(50))
+                                .padding(8.dp),
+                            colors = CardDefaults.cardColors(ExtendedTheme.colors.flowBackground)
                         )
+                        {
+                            Text(
+                                text = it,
+                                modifier = Modifier.padding(8.dp),
+                                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.SemiBold)
+                            )
+                        }
                     }
                 }
             }

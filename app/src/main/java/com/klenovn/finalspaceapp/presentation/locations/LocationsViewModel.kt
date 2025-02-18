@@ -3,7 +3,6 @@ package com.klenovn.finalspaceapp.presentation.locations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.klenovn.finalspaceapp.domain.repository.LocationRepository
-import com.klenovn.finalspaceapp.presentation.characters.CharactersState
 import com.klenovn.finalspaceapp.util.ResourceState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

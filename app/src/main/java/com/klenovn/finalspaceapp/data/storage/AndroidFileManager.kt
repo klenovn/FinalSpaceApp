@@ -1,7 +1,6 @@
 package com.klenovn.finalspaceapp.data.storage
 
 import android.content.Context
-import android.util.Log
 import com.klenovn.finalspaceapp.domain.storage.FileManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
