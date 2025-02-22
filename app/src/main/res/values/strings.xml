@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">FinalSpaceApp</string>
+
+    <string name="species">Species</string>
+    <string name="gender">Gender</string>
+    <string name="hair">Hair</string>
+    <string name="origin">Origin</string>
+    <string name="abilities">Abilities</string>
+    <string name="alias">Alias</string>
+    <string name="unknown">Unknown</string>
+
+    <string name="favorite_button_desc">Favourite button</string>
+    <string name="back_button_desc">Back button</string>
+
+    <string name="delete_button_desc">Delete from favourite</string>
+    <string name="add_button_desc">Add to favourite</string>
+    <string name="characters_image_desc">Character\'s image</string>
+    <string name="planet_image_desc">Planet\'s image</string>
+    <string name="loading_failed_error">Something went wrong</string>
+    <string name="retry_button_text">Retry</string>
+    <string name="inhabitants">Inhabitants</string>
+    <string name="notable_residents">Notable residents</string>
+
+    <string name="characters_nav_item">Characters</string>
+    <string name="favourites_nav_item">Favourites</string>
+    <string name="locations_nav_item">Locations</string>
 </resources>

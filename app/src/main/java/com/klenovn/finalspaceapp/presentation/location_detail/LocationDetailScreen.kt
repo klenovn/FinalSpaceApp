@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -29,6 +30,7 @@ import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.navigation.NavController
+import com.klenovn.finalspaceapp.R
 import com.klenovn.finalspaceapp.domain.model.Character
 import com.klenovn.finalspaceapp.presentation.common.components.ExpandableCharactersSection
 import com.klenovn.finalspaceapp.presentation.common.components.ExpandableInfoSection
@@ -78,7 +80,7 @@ private fun Content(
     ) {
         Icon(
             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-            contentDescription = "Back button"
+            contentDescription = stringResource(R.string.back_button_desc)
         )
     }
 
@@ -119,19 +121,19 @@ private fun Content(
                             )
                             Spacer(modifier = Modifier.height(16.dp))
 
-                            InfoRow(label = "Species", value = location.type)
+                            InfoRow(label = stringResource(R.string.species), value = location.type)
                             if (location.inhabitants.isNotEmpty()) ExpandableInfoSection(
-                                label = "Inhabitants",
+                                label = stringResource(R.string.inhabitants),
                                 content = location.inhabitants
                             )
-                        }
 
-                        if (location.notableResidents.isNotEmpty()) ExpandableCharactersSection(
-                            label = "Notable residents",
-                            content = state.notableResidents ?: emptyList(),
-                            onCardClick = { id -> onCardClick(id) },
-                            onToggleFavourite = { character -> onToggleFavourite(character) }
-                        )
+                            if (location.notableResidents.isNotEmpty()) ExpandableCharactersSection(
+                                label = stringResource(R.string.notable_residents),
+                                content = state.notableResidents ?: emptyList(),
+                                onCardClick = { id -> onCardClick(id) },
+                                onToggleFavourite = { character -> onToggleFavourite(character) }
+                            )
+                        }
                     }
                 }
             }

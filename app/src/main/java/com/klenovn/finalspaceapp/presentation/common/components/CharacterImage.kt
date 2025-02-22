@@ -9,8 +9,10 @@ import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
+import com.klenovn.finalspaceapp.R
 import java.io.File
 
 @Composable
@@ -20,7 +22,7 @@ fun CharacterImage(imgUrl: String, imgFile: File?) {
     )
     Image(
         painter = painter,
-        contentDescription = "Character's image",
+        contentDescription = stringResource(R.string.characters_image_desc),
         modifier = Modifier
             .fillMaxWidth(0.8f)
             .aspectRatio(1f)

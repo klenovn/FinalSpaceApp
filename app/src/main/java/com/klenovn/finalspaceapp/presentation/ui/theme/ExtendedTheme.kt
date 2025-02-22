@@ -7,12 +7,16 @@ import androidx.compose.ui.graphics.Color
 
 @Immutable
 data class ExtendedColors(
-    val flowBackground: Color
+    val flowItemBackground: Color,
+    val sectionHeaderBackground: Color,
+    val sectionContentBackground: Color
 )
 
 val LocalExtendedColors = staticCompositionLocalOf {
     ExtendedColors(
-        flowBackground = Color.Unspecified
+        flowItemBackground = Color.Unspecified,
+        sectionHeaderBackground = Color.Unspecified,
+        sectionContentBackground = Color.Unspecified
     )
 }
 

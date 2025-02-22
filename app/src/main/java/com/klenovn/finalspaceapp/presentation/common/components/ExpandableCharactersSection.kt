@@ -1,14 +1,18 @@
 package com.klenovn.finalspaceapp.presentation.common.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -21,10 +25,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.klenovn.finalspaceapp.domain.model.Character
+import com.klenovn.finalspaceapp.presentation.ui.theme.ExtendedTheme
 
 @Composable
 fun ExpandableCharactersSection(
@@ -32,17 +38,24 @@ fun ExpandableCharactersSection(
     content: List<Character>,
     onCardClick: (Int) -> Unit,
     onToggleFavourite: (Character) -> Unit
-) {
+) = Column {
     var isExpanded by rememberSaveable { mutableStateOf(false) }
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
 
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .background(color = ExtendedTheme.colors.sectionContentBackground)
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .clip(RoundedCornerShape(16.dp))
+                .background(color = ExtendedTheme.colors.sectionHeaderBackground)
                 .clickable { isExpanded = !isExpanded }
-                .padding(vertical = 8.dp, horizontal = 16.dp),
+                .padding(vertical = 16.dp, horizontal = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
@@ -54,11 +67,11 @@ fun ExpandableCharactersSection(
                 contentDescription = null
             )
         }
+
         if (isExpanded) {
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 48.dp)
             ) {
                 items(content) {
                     CharacterCard(
@@ -74,4 +87,7 @@ fun ExpandableCharactersSection(
         }
     }
 
+    if (isExpanded) {
+        Spacer(modifier = Modifier.size(48.dp))
+    }
 }

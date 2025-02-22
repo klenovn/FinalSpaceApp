@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FinalSpaceApp</string>
+
+    <string name="species">Вид</string>
+    <string name="gender">Пол</string>
+    <string name="hair">Волосы</string>
+    <string name="origin">Происхождение</string>
+    <string name="abilities">Способности</string>
+    <string name="alias">Псевдоним</string>
+    <string name="unknown">Неизвестно</string>
+
+    <string name="favorite_button_desc">Кнопка избранного</string>
+    <string name="back_button_desc">Кнопка назад</string>
+
+    <string name="delete_button_desc">Удалить из избранного</string>
+    <string name="add_button_desc">Добавить в избранное</string>
+    <string name="characters_image_desc">Изображение персонажа</string>
+    <string name="planet_image_desc">Изображение планеты</string>
+    <string name="loading_failed_error">Что-то пошло не так</string>
+    <string name="retry_button_text">Повторить</string>
+    <string name="inhabitants">Обитатели</string>
+    <string name="notable_residents">Известные жители</string>
+
+    <string name="characters_nav_item">Персонажи</string>
+    <string name="favourites_nav_item">Избранное</string>
+    <string name="locations_nav_item">Локации</string>
+</resources>

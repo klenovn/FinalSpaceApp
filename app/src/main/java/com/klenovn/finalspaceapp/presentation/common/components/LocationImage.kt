@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import coil.compose.rememberAsyncImagePainter
+import com.klenovn.finalspaceapp.R
 
 @Composable
 fun LocationImage(modifier: Modifier = Modifier, imgUrl: String) {
@@ -15,7 +17,7 @@ fun LocationImage(modifier: Modifier = Modifier, imgUrl: String) {
     )
     Image(
         painter = painter,
-        contentDescription = "Planet's image",
+        contentDescription = stringResource(R.string.planet_image_desc),
         modifier = modifier
             .fillMaxWidth()
             .aspectRatio(4f / 3f),

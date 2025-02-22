@@ -8,6 +8,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.klenovn.finalspaceapp.R
 
 @Composable
 fun RetryOnError(
@@ -19,9 +21,9 @@ fun RetryOnError(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Something went wrong")
+        Text(text = stringResource(R.string.loading_failed_error))
         Button(onClick = { onClick() }) {
-            Text(text = "Retry")
+            Text(text = stringResource(R.string.retry_button_text))
         }
     }
 }

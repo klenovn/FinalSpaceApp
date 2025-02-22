@@ -12,5 +12,9 @@ val Pink40 = Color(0xFF7D5260)
 
 val LightGrey = Color(0xFFFFFBFC)
 
-val FlowColorBgLight = Color(0xFFF1F8CE)
-val FlowColorBgDark = Color(0xFF71755E)
+val FlowItemColorBgLight = Color(0xFFD2EBFF)
+val FlowItemColorBgDark = Color(0xFF71755E)
+val SectionHeaderBgLight = Color(0xFFAAD4F5)
+val SectionHeaderBgDark = Color(0xFF222831)
+val SectionContentBgLight = Color(0xFFE2EEF5)
+val SectionContentBgDark = Color(0xFF31363F)

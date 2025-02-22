@@ -24,11 +24,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.klenovn.finalspaceapp.R
 import com.klenovn.finalspaceapp.domain.model.Character
 import com.klenovn.finalspaceapp.presentation.common.components.CharacterImage
 import com.klenovn.finalspaceapp.presentation.common.components.ExpandableInfoSection
@@ -67,14 +69,22 @@ private fun Content(
         IconButton(onClick = onBackClick) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = "Back button"
+                contentDescription = stringResource(R.string.back_button_desc)
             )
         }
         character?.let {
             IconButton(onClick = { onToggleFavourite(it) }) {
                 when (character.isFavourite) {
-                    true -> Icon(imageVector = Icons.Filled.Favorite, tint = Color.Red, contentDescription = "Favourite button")
-                    else -> Icon(imageVector = Icons.Default.FavoriteBorder, contentDescription = "Favourite button")
+                    true -> Icon(
+                        imageVector = Icons.Filled.Favorite,
+                        tint = Color.Red,
+                        contentDescription = stringResource(R.string.favorite_button_desc)
+                    )
+
+                    else -> Icon(
+                        imageVector = Icons.Default.FavoriteBorder,
+                        contentDescription = stringResource(R.string.favorite_button_desc)
+                    )
                 }
             }
         }
@@ -84,9 +94,11 @@ private fun Content(
         state.isLoading -> {
             ScreenLoadingIndicator()
         }
+
         state.error != null -> {
             RetryOnError { onRetry() }
         }
+
         else -> {
             Column(
                 modifier = Modifier
@@ -108,17 +120,20 @@ private fun Content(
                     )
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    InfoRow(label = "Species", value = character.species ?: "Unknown")
-                    InfoRow(label = "Gender", value = character.gender)
-                    InfoRow(label = "Hair", value = character.hair)
-                    InfoRow(label = "Origin", value = character.origin)
+                    InfoRow(
+                        label = stringResource(R.string.species),
+                        value = character.species ?: stringResource(R.string.unknown)
+                    )
+                    InfoRow(label = stringResource(R.string.gender), value = character.gender)
+                    InfoRow(label = stringResource(R.string.hair), value = character.hair)
+                    InfoRow(label = stringResource(R.string.origin), value = character.origin)
 
                     ExpandableInfoSection(
-                        label = "Abilities",
+                        label = stringResource(R.string.abilities),
                         content = character.abilities
                     )
                     ExpandableInfoSection(
-                        label = "Alias",
+                        label = stringResource(R.string.alias),
                         content = character.alias
                     )
 

@@ -23,9 +23,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val bottomNavItems = listOf(
-                BottomNavItem.Characters,
-                BottomNavItem.Favourites,
-                BottomNavItem.Locations
+                BottomNavItem.Characters(this),
+                BottomNavItem.Favourites(this),
+                BottomNavItem.Locations(this)
             )
 
             val selectedItemIndex = rememberSaveable {

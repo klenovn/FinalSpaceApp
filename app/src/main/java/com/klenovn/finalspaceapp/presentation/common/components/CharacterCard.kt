@@ -1,6 +1,5 @@
 package com.klenovn.finalspaceapp.presentation.common.components
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -29,12 +28,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
+import com.klenovn.finalspaceapp.R
 import com.klenovn.finalspaceapp.domain.model.Character
 import java.io.File
 
@@ -99,13 +100,13 @@ fun CharacterCard(
                 when (isFavourite) {
                     true -> Icon(
                         Icons.Filled.Favorite,
-                        contentDescription = "Delete from favourite",
+                        contentDescription = stringResource(R.string.delete_button_desc),
                         tint = Color.Red
                     )
 
                     else -> Icon(
                         Icons.Outlined.FavoriteBorder,
-                        contentDescription = "Add to favourite"
+                        contentDescription = stringResource(R.string.add_button_desc)
                     )
                 }
 
@@ -140,7 +141,7 @@ fun AsyncLoadingImage(imgUrl: String) {
         is AsyncImagePainter.State.Success -> {
             Image(
                 painter = painter,
-                contentDescription = "Character's image",
+                contentDescription = stringResource(R.string.characters_image_desc),
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(shape = RoundedCornerShape(16.dp))
@@ -148,9 +149,7 @@ fun AsyncLoadingImage(imgUrl: String) {
             )
         }
 
-        else -> {
-            Log.d("ImageState", "Unknown state")
-        }
+        else -> {}
     }
 }
 
@@ -160,7 +159,7 @@ fun LocalImage(file: File?) {
 
     Image(
         painter = painter,
-        contentDescription = "Character's image",
+        contentDescription = stringResource(R.string.characters_image_desc),
         modifier = Modifier
             .fillMaxWidth()
             .clip(shape = RoundedCornerShape(16.dp))

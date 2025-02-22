@@ -41,11 +41,15 @@ fun FinalSpaceAppTheme(
 
     val extendedColors = when {
         darkTheme -> ExtendedColors(
-            flowBackground = FlowColorBgDark
+            flowItemBackground = FlowItemColorBgDark,
+            sectionHeaderBackground = SectionHeaderBgDark,
+            sectionContentBackground = SectionContentBgDark
         )
 
         else -> ExtendedColors(
-            flowBackground = FlowColorBgLight
+            flowItemBackground = FlowItemColorBgLight,
+            sectionHeaderBackground = SectionHeaderBgLight,
+            sectionContentBackground = SectionContentBgLight
         )
     }
 

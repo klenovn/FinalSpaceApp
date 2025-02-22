@@ -1,13 +1,16 @@
 package com.klenovn.finalspaceapp.presentation.common.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
@@ -30,18 +33,25 @@ import com.klenovn.finalspaceapp.presentation.ui.theme.ExtendedTheme
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ExpandableInfoSection(label: String, content: List<String>) {
+fun ExpandableInfoSection(label: String, content: List<String>, bottomMargin: Int = 16) = Column {
     var isExpanded by rememberSaveable { mutableStateOf(false) }
 
     val cleanedContent = cleanAliases(content)
 
     if (content.isNotEmpty()) {
-        Column(modifier = Modifier.fillMaxWidth()) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(16.dp))
+                .background(color = ExtendedTheme.colors.sectionContentBackground)
+        ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(color = ExtendedTheme.colors.sectionHeaderBackground)
                     .clickable { isExpanded = !isExpanded }
-                    .padding(vertical = 8.dp),
+                    .padding(vertical = 16.dp, horizontal = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
@@ -55,13 +65,17 @@ fun ExpandableInfoSection(label: String, content: List<String>) {
             }
 
             if (isExpanded) {
-                FlowRow(modifier = Modifier) {
+                FlowRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = ExtendedTheme.colors.sectionContentBackground)
+                ) {
                     cleanedContent.forEach {
                         Card(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(50))
                                 .padding(8.dp),
-                            colors = CardDefaults.cardColors(ExtendedTheme.colors.flowBackground)
+                            colors = CardDefaults.cardColors(ExtendedTheme.colors.flowItemBackground)
                         )
                         {
                             Text(
@@ -74,10 +88,11 @@ fun ExpandableInfoSection(label: String, content: List<String>) {
                 }
             }
         }
+        Spacer(Modifier.size(bottomMargin.dp))
     }
 }
 
-fun cleanAliases(aliases: List<String>): List<String> {
+private fun cleanAliases(aliases: List<String>): List<String> {
     return aliases.map { alias ->
         alias.substringBefore("(").trim()
     }
