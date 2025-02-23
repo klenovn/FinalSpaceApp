@@ -3,17 +3,17 @@
 **FinalSpaceApp** is an Android pet project to explore characters, locations, and favorite items from the **Final Space** universe. The application is fully written in **Kotlin** using **Jetpack Compose**, featuring local caching via **Room** (for “liked” characters) and navigation with **Compose Navigation**. It also comes with a modern **dark theme** UI.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/803dadb2-8eed-49ab-82c2-84467ef52234" width="30%" />
-  <img src="https://github.com/user-attachments/assets/68e01cdf-4ebe-4fd2-b5f8-c09ff5e3020d" width="30%" />
-  <img src="https://github.com/user-attachments/assets/d2018ed8-55bf-433a-aff6-3fdc0a66bdb7" width="30%" />
+  <img src="https://github.com/user-attachments/assets/f5abe45f-453d-45d6-889f-e15dbddec3bb" width="30%" />
+  <img src="https://github.com/user-attachments/assets/3a026141-5301-4c90-978e-39c36d6ee57d" width="30%" />
+  <img src="https://github.com/user-attachments/assets/0cad90e0-4906-4f9e-b46a-0778074c005a" width="30%" />
 </p>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/a6290437-a057-4028-9253-4d144f54bfa5" width="30%" />
-  <img src="https://github.com/user-attachments/assets/ec7b4cb3-bd39-46e9-b1f1-d813d7eed67e" width="30%" />
-  <img src="https://github.com/user-attachments/assets/7eef41d6-a163-4ddf-8664-358c3fb2ca2e" width="30%" />
+  <img src="https://github.com/user-attachments/assets/081e9a87-6667-4f12-b869-5262e511142d" width="30%" />
+  <img src="https://github.com/user-attachments/assets/65fb83f0-2d76-4a8e-8964-04e99bd65a2b" width="30%" />
+  <img src="https://github.com/user-attachments/assets/8dee6a4e-c7b9-4051-abd0-c4523f1e4097" width="30%" />
 </p>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/01932c5c-c2f7-49dc-a124-54587f8ab72d" width="30%" />
+  <img src="https://github.com/user-attachments/assets/1f380360-06da-432b-ba8f-fa0d35c00371" width="30%" />
 </p>
 
 ## Main Features
